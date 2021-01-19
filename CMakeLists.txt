@@ -770,7 +770,7 @@ IF(USE_HDF5 OR ENABLE_NETCDF_4)
   ENDIF(NOT HAVE_HDF5_H)
 
   # Check to ensure that HDF5 was built with zlib.
-  set (CMAKE_REQUIRED_INCLUDES ${HAVE_HDF5_H})
+  set (CMAKE_REQUIRED_INCLUDES ${CMAKE_REQUIRED_INCLUDES} "${HAVE_HDF5_H}")
   CHECK_C_SOURCE_COMPILES("#include <H5pubconf.h>
    #if !H5_HAVE_ZLIB_H
    #error
@@ -1473,6 +1473,19 @@ ENDIF()
 
 MACRO(GEN_m4 filename)
 
+<<<<<<< HEAD
+=======
+set(dest "${CMAKE_CURRENT_SOURCE_DIR}/${filename}.c")
+
+  # If m4 isn't present, and the generated file doesn't exist,
+  # it cannot be generated and an error should be thrown.
+  IF(NOT HAVE_M4)
+    IF(NOT EXISTS ${dest})
+      MESSAGE(FATAL_ERROR "m4 is required to generate ${dest}. Please install m4 so that it is on the PATH and try again.")
+    ENDIF()
+  ENDIF(NOT HAVE_M4)
+
+>>>>>>> 9ad3e493... more missing includes for MPI without wrapper
   IF(HAVE_M4)
 
   # If m4 is available, remove generated file if it exists.
