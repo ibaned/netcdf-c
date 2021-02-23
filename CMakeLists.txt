@@ -1473,19 +1473,6 @@ ENDIF()
 
 MACRO(GEN_m4 filename)
 
-<<<<<<< HEAD
-=======
-set(dest "${CMAKE_CURRENT_SOURCE_DIR}/${filename}.c")
-
-  # If m4 isn't present, and the generated file doesn't exist,
-  # it cannot be generated and an error should be thrown.
-  IF(NOT HAVE_M4)
-    IF(NOT EXISTS ${dest})
-      MESSAGE(FATAL_ERROR "m4 is required to generate ${dest}. Please install m4 so that it is on the PATH and try again.")
-    ENDIF()
-  ENDIF(NOT HAVE_M4)
-
->>>>>>> 9ad3e493... more missing includes for MPI without wrapper
   IF(HAVE_M4)
 
   # If m4 is available, remove generated file if it exists.
