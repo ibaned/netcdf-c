@@ -1614,7 +1614,7 @@ set(dest "${CMAKE_CURRENT_SOURCE_DIR}/${filename}.c")
   # it cannot be generated and an error should be thrown.
   IF(NOT HAVE_M4)
     IF(NOT EXISTS ${dest})
-      MESSAGE(FATAL_ERROR "m4 is required to generate ${filename}.c. Please install m4 so that it is on the PATH and try again.")
+      MESSAGE(FATAL_ERROR "m4 is required to generate ${dest}. Please install m4 so that it is on the PATH and try again.")
     ENDIF()
   ENDIF(NOT HAVE_M4)
 
