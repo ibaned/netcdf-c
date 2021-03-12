@@ -12,6 +12,7 @@
 #include "err_macros.h"
 #include "netcdf.h"
 #include "nc4dispatch.h"
+#include "hdf5dispatch.h"
 #include "netcdf_dispatch.h"
 
 #define FILE_NAME "tst_udf.nc"
@@ -86,7 +87,7 @@ static NC_Dispatch tst_dispatcher = {
 
     NC_RO_def_dim,
     NC4_inq_dimid,
-    NC4_inq_dim,
+    HDF5_inq_dim,
     NC4_inq_unlimdim,
     NC_RO_rename_dim,
 
@@ -150,7 +151,11 @@ static NC_Dispatch tst_dispatcher = {
     NC_NOTNC4_def_var_endian,
     NC_NOTNC4_def_var_filter,
     NC_NOTNC4_set_var_chunk_cache,
-    NC_NOTNC4_get_var_chunk_cache
+    NC_NOTNC4_get_var_chunk_cache,
+#if NC_DISPATCH_VERSION >= 3
+    NC_NOOP_inq_var_filter_ids,
+    NC_NOOP_inq_var_filter_info,
+#endif
 };
 
 /* This is the dispatch object that holds pointers to all the
@@ -178,7 +183,7 @@ static NC_Dispatch tst_dispatcher_bad_version = {
 
     NC_RO_def_dim,
     NC4_inq_dimid,
-    NC4_inq_dim,
+    HDF5_inq_dim,
     NC4_inq_unlimdim,
     NC_RO_rename_dim,
 
@@ -242,7 +247,11 @@ static NC_Dispatch tst_dispatcher_bad_version = {
     NC_NOTNC4_def_var_endian,
     NC_NOTNC4_def_var_filter,
     NC_NOTNC4_set_var_chunk_cache,
-    NC_NOTNC4_get_var_chunk_cache
+    NC_NOTNC4_get_var_chunk_cache,
+#if NC_DISPATCH_VERSION >= 2
+    NC_NOOP_inq_var_filter_ids,
+    NC_NOOP_inq_var_filter_info,
+#endif
 };
 
 #define NUM_UDFS 2

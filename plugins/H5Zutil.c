@@ -4,6 +4,7 @@
  */
 
 
+#include "config.h"
 #include <hdf5.h>
 
 /*
@@ -46,7 +47,7 @@ byteswap4(unsigned char* mem)
 #endif /*WORDS_BIGENDIAN*/
 
 void
-NC_filterfix8(void* mem0, int decode)
+NC_h5filterspec_fix8(void* mem0, int decode)
 {
 #ifdef WORDS_BIGENDIAN
     unsigned char* mem = mem0;

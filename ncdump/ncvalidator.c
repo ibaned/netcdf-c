@@ -73,12 +73,10 @@ THIS SOFTWARE.
 #include <unistd.h>     /* read() getopt() */
 #endif
 
-#ifdef _WIN32
+#ifdef _MSC_VER
 #include <io.h>
-#define snprintf _snprintf
 #include "XGetopt.h"
-int opterr;
-int optind;
+#define snprintf _snprintf
 #endif
 
 #define X_ALIGN         4

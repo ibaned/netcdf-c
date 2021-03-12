@@ -11,6 +11,7 @@ UNK=1
 NGC=1
 MISC=1
 MULTI=1
+REP=1
 ORDER=1
 
 # Load the findplugins function
@@ -198,7 +199,7 @@ echo "*** Testing multiple filters"
 rm -f ./multifilter.nc ./multi.txt ./smulti.cdl
 rm -f nccopyF.cdl nccopyF.nc ncgenF.cdl ncgenF.nc
 ${execdir}/tst_multifilter
-${NCDUMP} -hs ./multifilter.nc >./multi.cdl
+${NCDUMP} -hs multifilter.nc >./multi.cdl
 # Remove irrelevant -s output
 sclean ./multi.cdl ./smulti.cdl
 diff -b -w ${srcdir}/ref_multi.cdl ./smulti.cdl
@@ -219,11 +220,25 @@ diff -b -w ${srcdir}/ref_nccopyF.cdl ./ncgenFs.cdl
 echo "*** Pass: multiple filters"
 fi
 
-if test "x$MULTI" = x1 ; then
-echo "*** Testing multiple filter order of invocation"
-rm -f filterorder.txt
-${execdir}/test_filter_order >filterorder.txt
-diff -b -w ${srcdir}/ref_filter_order.txt filterorder.txt
+if test "x$REP" = x1 ; then
+echo "*** Testing filter re-definition invocation"
+rm -f filterrepeat.txt
+${execdir}/test_filter_repeat >filterrepeat.txt
+diff -b -w ${srcdir}/ref_filter_repeat.txt filterrepeat.txt
+fi
+
+if test "x$ORDER" = x1 ; then
+
+echo "*** Testing multiple filter order of invocation on create"
+rm -f crfilterorder.txt
+${execdir}/test_filter_order create >crfilterorder.txt
+diff -b -w ${srcdir}/ref_filter_order_create.txt crfilterorder.txt
+
+echo "*** Testing multiple filter order of invocation on read"
+rm -f rdfilterorder.txt
+${execdir}/test_filter_order read >rdfilterorder.txt
+diff -b -w ${srcdir}/ref_filter_order_read.txt rdfilterorder.txt
+
 fi
 
 echo "*** Pass: all selected tests passed"
@@ -240,7 +255,8 @@ rm -f bzip2.nc bzip2.dump tst_filter.txt bzip2x.dump
 rm -f test_bzip2.c
 rm -f multifilter.nc multi.cdl smulti.cdl
 rm -f nccopyF.nc nccopyF.cdl ncgenF.nc ncgenF.cdl
-rm -f filterorder.txt
 rm -f ncgenFs.cdl  nccopyFs.cdl
+#rm -f crfilterorder.txt rdfilterorder.txt
+
 exit 0
 
